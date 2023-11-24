@@ -1,4 +1,4 @@
-package com.touche.backend.repository;
-
-public interface MachineRepository extends JpaRepository<> {
-}
+//package com.touche.backend.repository;
+//
+//public interface MachineRepository extends JpaRepository<> {
+//}

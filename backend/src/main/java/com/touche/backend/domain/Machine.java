@@ -4,7 +4,7 @@ import com.touche.backend.domain.descriptor.MachineType;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "machines")
+@Table(name = "machine")
 public class Machine {
 
 

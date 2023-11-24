@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "appointments")
+@Table(name = "appointment")
 public class Appointment {
     // duration
     // timeslot
@@ -20,9 +20,9 @@ public class Appointment {
 //    private CancerType cancerType;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patients;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "patient_id", nullable = false)
+//    private Patient patients;
 
 
 }
