@@ -1,0 +1,15 @@
+version: '1.0'
+volumes:
+  touche-psql-data:
+services:
+  touche-psql:
+    image: kartoza/postgis:15-3
+    volumes:
+      - touche-psql-data:/var/lib/postgresql
+    ports:
+      - "5655:5432"
+    env_file:
+      - docker-env/db.env
+    restart: always
+    healthcheck:
+      test: "exit 0"

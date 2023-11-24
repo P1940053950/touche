@@ -14,7 +14,7 @@ public class MachineController {
     //    @Autowired
 //    private Something;
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "/sadfsafd")
     public ResponseEntity<?> get() {
 
 

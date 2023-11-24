@@ -1,16 +1,31 @@
 package com.touche.backend.domain;
 
-public enum CancerType {
+import com.touche.backend.domain.descriptor.CancerName;
+import jakarta.persistence.*;
+import lombok.*;
 
-        CRANIOSPINAL,
-        BREAST,
-        BREAST_SPECIAL,
-        HEAD_AND_NECK,
-        ABDOMEN,
-        PELVIS,
-        CRANE,
-        LUNG,
-        LUNG_SPECIAL,
-        WHOLE_BRAIN;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "cancer_type")
+public class CancerType {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+
+        private CancerName name;
+
+        private Double avgFactionTime;
+
+        // TODO: store all fraction number
+        private Double fractionNumber;
+
+        @OneToMany(mappedBy = "CancerType", fetch = FetchType.LAZY)
+        private List<Patient> patients = new ArrayList<>();
 
 }

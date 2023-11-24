@@ -1,28 +1,13 @@
 package com.touche.backend.domain;
 
+import com.touche.backend.domain.descriptor.MachineType;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "machines")
 public class Machine {
 
-    public enum MachineType {
-        TB1("TB1"),
-        TB2("TB2"),
-        VB1("VB1"),
-        VB2("VB2"),
-        U("U");
 
-        private final String value;
-
-        MachineType(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

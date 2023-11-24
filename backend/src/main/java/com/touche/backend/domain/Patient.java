@@ -1,22 +1,13 @@
 package com.touche.backend.domain;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,7 +16,6 @@ import java.util.Date;
 @Entity
 @Table(name = "patients")
 public class Patient {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,11 +36,13 @@ public class Patient {
 
     private Date createdAt;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cancer_type_id", nullable = false)
     private CancerType cancerType;
 
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Appointment> appointments = new ArrayList<>();
 
-
-    // urgency
+   // urgency
     // fraction number
 }
