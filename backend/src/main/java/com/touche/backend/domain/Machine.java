@@ -28,12 +28,12 @@ public class Machine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    private Patient.CancerType cancerType;
+//    @Enumerated(EnumType.STRING)
+//    private CancerType cancerType;
 
     @Enumerated(EnumType.STRING)
     private MachineType machineType;
 
-    @OneToMany
-    private Appointment[] appointments;
+//    @OneToMany
+//    private Appointment[] appointments;
 }
