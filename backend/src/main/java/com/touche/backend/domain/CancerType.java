@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,5 +29,12 @@ public class CancerType {
 
         @OneToMany(mappedBy = "cancerType", fetch = FetchType.LAZY)
         private List<Patient> patients = new ArrayList<>();
+
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "machine_id", nullable = false)
+        private Machine machine;
+
+        @ManyToMany(mappedBy = "cancerTypes")
+        private Set<Machine> machines = new HashSet<>();
 
 }
