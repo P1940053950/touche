@@ -49,6 +49,8 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private CancerType cancerType;
 
+
+
     // urgency
     // fraction number
 }

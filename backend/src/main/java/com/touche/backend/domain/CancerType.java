@@ -4,13 +4,13 @@ public enum CancerType {
 
         CRANIOSPINAL,
         BREAST,
-        BREAST_SPECIAL("BREAST SPECIAL"),
-        HEAD_AND_NECK("HEAD & NECK"),
-        ABDOMEN("ABDOMEN"),
-        PELVIS("PELVIS"),
-        CRANE("CRANE"),
-        LUNG("LUNG"),
-        LUNG_SPECIAL("LUNG SPECIAL"),
-        WHOLE_BRAIN("WHOLE BRAIN");
+        BREAST_SPECIAL,
+        HEAD_AND_NECK,
+        ABDOMEN,
+        PELVIS,
+        CRANE,
+        LUNG,
+        LUNG_SPECIAL,
+        WHOLE_BRAIN;
 
 }
