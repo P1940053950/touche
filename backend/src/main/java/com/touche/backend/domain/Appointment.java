@@ -19,10 +19,11 @@ public class Appointment {
 
 //    private CancerType cancerType;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "patient_id", nullable = false)
-//    private Patient patients;
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "machine_id", nullable = false)
+    private Machine machine;
 }

@@ -25,7 +25,7 @@ public class CancerType {
         // TODO: store all fraction number
         private Double fractionNumber;
 
-//        @OneToMany(mappedBy = "cancer_type", fetch = FetchType.LAZY)
-//        private List<Patient> patients = new ArrayList<>();
+        @OneToMany(mappedBy = "cancerType", fetch = FetchType.LAZY)
+        private List<Patient> patients = new ArrayList<>();
 
 }

@@ -27,12 +27,12 @@ public class Patient {
 
     private Date createdAt;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "cancer_type_id", nullable = false)
-//    private CancerType cancerType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cancer_type_id", nullable = false)
+    private CancerType cancerType;
 
-//    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-//    private List<Appointment> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Appointment> appointments = new ArrayList<>();
 
    // urgency
     // fraction number
