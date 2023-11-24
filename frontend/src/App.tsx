@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from './redux/reducer';
 import { decrement, increment } from './redux/uiSlice';
 import { useFetchCatsQuery } from './redux/catApiSlice';
 import { Calendar } from './components/Calendar/Calendar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,18 @@ function App() {
   const catUrl = cats.data ? cats.data[0]?.url : undefined;
   return (
     <>
+      <BrowserRouter>
+
+        <Routes>
+          <Route path="/" element={<div>test</div>} />
+          <Route path="/story" element={<div />} />
+        </Routes>
+      </BrowserRouter>
+
+    {/* <Routes>
+                    <Route path="/" element={<div>test</div>}/>
+                    <Route path="/story" element={<StoryLayout/>}/>
+                </Routes> */}
       <Calendar
         currentDate={today}
         schedulerData={[
