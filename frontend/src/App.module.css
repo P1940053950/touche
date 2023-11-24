@@ -1,0 +1,11 @@
+.container {
+  border: 1px red dashed;
+}
+
+.card {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
