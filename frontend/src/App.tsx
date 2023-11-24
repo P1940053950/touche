@@ -28,6 +28,7 @@ function App() {
     <>
       <Calendar
         currentDate={today}
+        viewType="switcher"
         schedulerData={[
           {
             startDate: new Date('2018-11-01T09:45'),

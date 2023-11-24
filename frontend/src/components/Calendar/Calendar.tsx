@@ -11,6 +11,7 @@ import {
   Toolbar,
   DateNavigator,
   TodayButton,
+  ViewSwitcher,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { FC } from 'react';
 
@@ -99,13 +100,15 @@ const DayScaleCell = (props: any) => {
 export const Calendar: FC<{
   currentDate: Date;
   schedulerData: SchedulerDataArray;
-  viewType?: 'day' | 'week' | 'month';
+  viewType?: 'day' | 'week' | 'month' | 'switcher';
 }> = ({ schedulerData, currentDate, viewType = 'week' }) => (
   <Paper>
     <Scheduler data={schedulerData}>
       <ViewState defaultCurrentDate={currentDate} />
-      {viewType === 'day' && <DayView startDayHour={9} endDayHour={14} />}
-      {viewType === 'week' && (
+      {(viewType === 'day' || viewType === 'switcher') && (
+        <DayView startDayHour={9} endDayHour={14} />
+      )}
+      {(viewType === 'week' || viewType === 'switcher') && (
         <WeekView
           startDayHour={9}
           endDayHour={19}
@@ -113,8 +116,9 @@ export const Calendar: FC<{
           dayScaleCellComponent={DayScaleCell}
         />
       )}
-      {viewType === 'month' && <MonthView />}
+      {(viewType === 'month' || viewType === 'switcher') && <MonthView />}
       <Toolbar />
+      {viewType === 'switcher' && <ViewSwitcher />}
       <DateNavigator />
       <TodayButton />
       <Appointments />
