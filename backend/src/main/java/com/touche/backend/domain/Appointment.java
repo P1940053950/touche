@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -25,6 +26,8 @@ public class Appointment {
 
     private Integer duration;
 
+    private Date date;
+
 //    private CancerType cancerType;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,6 +37,4 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_id", nullable = false)
     private Machine machine;
-
-
 }

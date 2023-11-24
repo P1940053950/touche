@@ -25,6 +25,8 @@ public class AppointmentService {
         return appointmentRepository.findAll();
     }
 
+    
+
     public Appointment getAppointmentById(long id) {
         return appointmentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Appointment with id='%d' not found!".formatted(id)));
@@ -34,4 +36,10 @@ public class AppointmentService {
         return new Appointment();
     }
 
+    @Transactional
+    public Appointment updateAppointment(long id, AppointmentDTO dto) {
+        Appointment appointmentToUpdate = getAppointmentById(id);
+        appointmentToUpdate.setDate(appointmentToUpdate.getDate());
+        return appointmentToUpdate;
+    }
 }
