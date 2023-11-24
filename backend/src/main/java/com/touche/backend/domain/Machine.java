@@ -2,6 +2,10 @@ package com.touche.backend.domain;
 
 import com.touche.backend.domain.descriptor.MachineType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.beans.Customizer;
 import java.util.ArrayList;
@@ -9,6 +13,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "machine")
 public class Machine {
