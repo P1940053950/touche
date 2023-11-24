@@ -1,0 +1,11 @@
+.clickMe {
+  border: 4px green dotted;
+}
+
+.clickMe:hover {
+  border: 4px red dotted;
+}
+
+.clickMe:active {
+  border: 4px red dashed;
+}
