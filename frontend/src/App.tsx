@@ -6,9 +6,9 @@ import { Calendar } from './components/Calendar/Calendar';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { updateAppointments } from './redux/uiSlice';
 import Beds from './components/Beds/Bed';
-import { annotations } from './components/Beds/Bed.stories';
 import styles from './App.module.css';
-import MenuAppBar from "./components/menu/MenuAppbar.tsx";
+import MenuAppBar from './components/menu/MenuAppbar.tsx';
+import annotations from './components/Beds/Annotation';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -24,45 +24,22 @@ function App() {
   return (
     <>
       <BrowserRouter>
-          <MenuAppBar></MenuAppBar>
+        <MenuAppBar></MenuAppBar>
 
-          <Routes>
+        <Routes>
+          <Route path="/" element={<div className={styles.mainPage}></div>} />
           <Route
-            path="/"
+            path="/calendar"
             element={
-              <div className={styles.mainPage}>
-                <Link to={'/beds'}>Beds</Link>
-                <Link to={'/schedule'}>Scheduler</Link>
-              </div>
+              <Calendar
+                currentDate={today}
+                viewType="switcher"
+                schedulerData={appointments}
+                onCommitChanges={handleAppointmentsEdit}
+              />
             }
           />
-          <Route
-            path="/schedule"
-            element={
-              <>
-                <Link to={'/'} className={styles.topNav}>
-                  Home
-                </Link>
-                <Calendar
-                  currentDate={today}
-                  viewType="switcher"
-                  schedulerData={appointments}
-                  onCommitChanges={handleAppointmentsEdit}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/beds"
-            element={
-              <>
-                <Link to={'/'} className={styles.topNav}>
-                  Home
-                </Link>
-                <Beds annotations={annotations} />
-              </>
-            }
-          />
+          <Route path="/beds" element={<Beds annotations={annotations} />} />
         </Routes>
       </BrowserRouter>
     </>

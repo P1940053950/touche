@@ -1,0 +1,46 @@
+.annotation {
+  position: absolute;
+  opacity: 0.6;
+  border-radius: 4px;
+  transition:
+    border 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+
+.emptyRoom {
+  border: 2px solid green;
+}
+
+.halffullRoom {
+  border: 2px solid orange;
+}
+
+.fullRoom {
+  border: 2px solid #ff0000;
+}
+
+.roomIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem !important;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.userSmallCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.userSmallCardAvatar {
+  width: 0.75rem !important;
+  height: 0.75rem !important;
+  padding: 5px;
+  background-color: salmon;
+  color: white;
+  border-radius: 50%;
+}

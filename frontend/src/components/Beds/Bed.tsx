@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Card,
   CardMedia,
@@ -13,6 +13,11 @@ import {
   TextField,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import styles from './Bed.module.css';
+import classNames from 'classnames';
+import HotelIcon from '@mui/icons-material/Hotel';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { AnnotationData } from './Annotation';
 
 const Annotation = ({ x, y, width, height, occupiedPlaces, freePlaces }) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
@@ -52,7 +57,100 @@ const Annotation = ({ x, y, width, height, occupiedPlaces, freePlaces }) => {
   );
 };
 
-const AnnotationContainer = ({ annotations }) => {
+const freeRoomBackground = `repeating-linear-gradient(
+  45deg,
+  green,
+  green 10px,
+  transparent 10px,
+  transparent 20px
+)`;
+
+const halffullRoomBackground = `repeating-linear-gradient(
+  45deg,
+  orange,
+  orange 10px,
+  transparent 10px,
+  transparent 20px
+)`;
+
+const fullRoomBackground = `repeating-linear-gradient(
+  45deg,
+  red,
+  red 10px,
+  transparent 10px,
+  transparent 20px
+)`;
+
+const getColor = (freePlaces: number) => {
+  return freePlaces === 0 ? 'red' : freePlaces < 2 ? 'orange' : 'green';
+};
+
+const Room: FC<{
+  annotation: AnnotationData;
+  index: number;
+  selectedAnnotation: number | undefined;
+  setHoveredAnnotation: React.Dispatch<
+    React.SetStateAction<number | undefined>
+  >;
+  setSelectedAnnotation: React.Dispatch<
+    React.SetStateAction<number | undefined>
+  >;
+}> = ({
+  annotation,
+  index,
+  selectedAnnotation,
+  setHoveredAnnotation,
+  setSelectedAnnotation,
+}) => {
+  return (
+    <div
+      className={classNames(styles.annotation, {
+        [styles.emptyRoom]: annotation.freePlaces > 0,
+        [styles.halffullRoom]: annotation.freePlaces < 2,
+        [styles.fullRoom]: annotation.freePlaces === 0,
+      })}
+      style={{
+        left: annotation.x,
+        top: annotation.y,
+        width: annotation.width,
+        height: annotation.height,
+        background:
+          annotation.freePlaces === 0
+            ? fullRoomBackground
+            : annotation.freePlaces < 2
+              ? halffullRoomBackground
+              : freeRoomBackground,
+        backgroundColor:
+          index === selectedAnnotation
+            ? getColor(annotation.freePlaces)
+            : 'transparent',
+      }}
+      onMouseEnter={() => setHoveredAnnotation(index)}
+      onMouseLeave={() => setHoveredAnnotation(undefined)}
+      onClick={() => {
+        setSelectedAnnotation(index);
+      }}
+    >
+      <HotelIcon
+        className={styles.roomIcon}
+        style={{ color: getColor(annotation.freePlaces) }}
+      />
+    </div>
+  );
+};
+
+const UserSmallCard: FC<{ username: string }> = ({ username }) => {
+  return (
+    <div className={styles.userSmallCard}>
+      <PersonAddIcon className={styles.userSmallCardAvatar} />
+      <Typography variant="subtitle1">{username}</Typography>
+    </div>
+  );
+};
+
+const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
+  annotations,
+}) => {
   const [selectedAnnotation, setSelectedAnnotation] = useState<number>();
   const [hoveredAnnotation, setHoveredAnnotation] = useState<number>();
   return (
@@ -67,33 +165,13 @@ const AnnotationContainer = ({ annotations }) => {
       </Card>
       {annotations.map((annotation, index) => (
         <React.Fragment key={annotation.id}>
-          <div
-            style={{
-              position: 'absolute',
-              left: annotation.x,
-              top: annotation.y,
-              width: annotation.width,
-              height: annotation.height,
-              opacity: 0.6,
-              border:
-                annotation.freePlaces !== 0
-                  ? '2px solid green'
-                  : '2px solid red',
-              backgroundColor:
-                index === selectedAnnotation
-                  ? annotation.freePlaces !== 0
-                    ? 'green'
-                    : 'red'
-                  : 'transparent',
-              transition:
-                'border 0.3s ease-in-out, background-color 0.3s ease-in-out',
-            }}
-            onMouseEnter={() => setHoveredAnnotation(index)}
-            onMouseLeave={() => setHoveredAnnotation(undefined)}
-            onClick={() => {
-              setSelectedAnnotation(index);
-            }}
-          ></div>
+          <Room
+            annotation={annotation}
+            index={index}
+            selectedAnnotation={selectedAnnotation}
+            setHoveredAnnotation={setHoveredAnnotation}
+            setSelectedAnnotation={setSelectedAnnotation}
+          />
           <div>
             {index === hoveredAnnotation && (
               <Paper
@@ -105,13 +183,12 @@ const AnnotationContainer = ({ annotations }) => {
                   transform: 'translateX(-50%)',
                   padding: '5px',
                   borderRadius: '5px',
+                  border: '1px solid lightblue',
                 }}
               >
                 {annotation.usernames.length > 0 ? (
                   annotation.usernames.map((username, idx) => (
-                    <Typography variant="subtitle1" key={idx}>
-                      {username}
-                    </Typography>
+                    <UserSmallCard key={idx} username={username} />
                   ))
                 ) : (
                   <Typography variant="subtitle1">Empty Room</Typography>
