@@ -27,25 +27,30 @@ public class AppointmentController {
         return ResponseEntity.ok(new Object());
     }
 
-//    @GetMapping
-//    public List<AppointmentDTO> findAllAppointments() {
-//        List<Appointment> existedAppointments = appointmentService.getAllAppointments();
-//        return existedAppointments.stream()
-//                .map(this::toAppointmentDTO)
-//                .collect(Collectors.toList());
-//    }
+    @GetMapping
+    public List<AppointmentDTO> findAllAppointments() {
+        List<Appointment> existedAppointments = appointmentService.getAllAppointments();
+        return existedAppointments.stream()
+                .map(this::toAppointmentDTO)
+                .collect(Collectors.toList());
+    }
 
-//    @GetMapping(path = "/{id}")
-//    public AppointmentDTO findAppointmentById(@PathVariable(name = "id") long id) {
-//        Appointment existedAppointment = appointmentService.getAppointmentById(id);
-//        return toAppointmentDTO(existedAppointment);
-//    }
+    @GetMapping(path = "/{id}")
+    public AppointmentDTO findAppointmentById(@PathVariable(name = "id") long id) {
+        Appointment existedAppointment = appointmentService.getAppointmentById(id);
+        return toAppointmentDTO(existedAppointment);
+    }
 
     @PutMapping(path = "/{id}")
     public AppointmentDTO updateAppointment(@RequestBody AppointmentDTO dto,
                                       @PathVariable(name = "id") long id) {
         Appointment updatedAppointment = appointmentService.updateAppointment(id, dto);
         return toAppointmentDTO(updatedAppointment);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteAppointment(@PathVariable(name = "id") long id) {
+        appointmentService.deleteAppointment(id);
     }
 
     private AppointmentDTO toAppointmentDTO(final Appointment appointment) {

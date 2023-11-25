@@ -42,4 +42,10 @@ public class AppointmentService {
         appointmentToUpdate.setDate(appointmentToUpdate.getDate());
         return appointmentToUpdate;
     }
+
+    @Transactional
+    public void deleteAppointment(long id) {
+        Appointment existedAppointment = getAppointmentById(id);
+        appointmentRepository.delete(existedAppointment);
+    }
 }
