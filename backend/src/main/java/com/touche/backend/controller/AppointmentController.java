@@ -62,7 +62,9 @@ public class AppointmentController {
                 appointment.getDuration(),
                 appointment.getPatient(),
                 appointment.getMachine(),
-                appointment.getDate()
+                appointment.getDate(),
+                appointment.getStartDate(),
+                appointment.getEndDate()
                 );
     }
 }
