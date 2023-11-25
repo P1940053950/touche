@@ -34,6 +34,10 @@ public class Patient {
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Appointment> appointments = new ArrayList<>();
 
-   // urgency
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_reservation_id", nullable = false)
+    private RoomReservation roomReservation;
+
+    // urgency
     // fraction number
 }
