@@ -20,6 +20,7 @@ public class CancerType {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
 
+        @Enumerated(EnumType.STRING)
         private CancerName name;
 
         private Double avgFactionTime;
@@ -31,7 +32,7 @@ public class CancerType {
         private List<Patient> patients = new ArrayList<>();
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "machine_id", nullable = false)
+        @JoinColumn(name = "machine_id")
         private Machine machine;
 
         @ManyToMany(mappedBy = "cancerTypes")

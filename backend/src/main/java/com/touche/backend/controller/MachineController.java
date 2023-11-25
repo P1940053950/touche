@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/machine")
+@RequestMapping(path = "/machines")
 public class MachineController {
     
     //    @Autowired
