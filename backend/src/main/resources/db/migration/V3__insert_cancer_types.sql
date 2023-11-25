@@ -26,27 +26,9 @@ VALUES
     ('2023-11-27 16:45:00', 3, '2023-11-27 13:30:00');
 
 INSERT INTO patient (cancer_type_id, created_at, room_reservation_id, email, name, phone)
-VALUES (
-           35,
-           CURRENT_TIMESTAMP,
-           1,
-           'john.doe@example.com',
-           'John Doe',
-           '+1-555-1234'
-       );
-
-INSERT INTO patient (cancer_type_id, created_at, room_reservation_id, email, name, phone)
-VALUES (
-           32,
-           CURRENT_TIMESTAMP,
-           2,
-           'ivan.ivanov@example.com',
-           'Ivan Ivanov',
-           '8-800-555-35-35'
-       );
-
-INSERT INTO patient (cancer_type_id, created_at, room_reservation_id, email, name, phone)
 VALUES
+    (35,CURRENT_TIMESTAMP, 1, 'john.doe@example.com', 'John Doe','+1-555-1234'),
+    (32, CURRENT_TIMESTAMP, 2, 'ivan.ivanov@example.com', 'Ivan Ivanov', '8-800-555-35-35'),
     (33, CURRENT_TIMESTAMP, 1, 'jane.doe@example.com', 'Jane Doe', '+1-555-9876'),
     (37, CURRENT_TIMESTAMP, 3, 'alex.smith@example.com', 'Alex Smith', '+1-555-1234'),
     (34, CURRENT_TIMESTAMP, 2, 'lisa.jones@example.com', 'Lisa Jones', '+1-555-5678');
