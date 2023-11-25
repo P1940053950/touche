@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Paper from '@mui/material/Paper';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import {
+  EditingState,
+  IntegratedEditing,
+  ViewState,
+} from '@devexpress/dx-react-scheduler';
 import { styled, alpha } from '@mui/material/styles';
 import {
   Scheduler,
@@ -12,10 +16,14 @@ import {
   DateNavigator,
   TodayButton,
   ViewSwitcher,
+  ConfirmationDialog,
+  AppointmentTooltip,
+  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { FC } from 'react';
 
 interface SchedulerDataPoint {
+  id: number;
   startDate: Date;
   endDate: Date;
   title: string;
@@ -100,11 +108,14 @@ const DayScaleCell = (props: any) => {
 export const Calendar: FC<{
   currentDate: Date;
   schedulerData: SchedulerDataArray;
-  viewType?: 'day' | 'week' | 'month' | 'switcher';
-}> = ({ schedulerData, currentDate, viewType = 'week' }) => (
+  viewType: 'day' | 'week' | 'month' | 'switcher';
+  onCommitChanges: (...args: any[]) => void;
+}> = ({ schedulerData, currentDate, viewType, onCommitChanges }) => (
   <Paper>
-    <Scheduler data={schedulerData}>
+    <Scheduler data={schedulerData} firstDayOfWeek={1}>
       <ViewState defaultCurrentDate={currentDate} />
+      <EditingState onCommitChanges={onCommitChanges} />
+      <IntegratedEditing />
       {(viewType === 'day' || viewType === 'switcher') && (
         <DayView startDayHour={9} endDayHour={14} />
       )}
@@ -119,9 +130,12 @@ export const Calendar: FC<{
       {(viewType === 'month' || viewType === 'switcher') && <MonthView />}
       <Toolbar />
       {viewType === 'switcher' && <ViewSwitcher />}
+      <ConfirmationDialog />
       <DateNavigator />
       <TodayButton />
       <Appointments />
+      <AppointmentTooltip showOpenButton showDeleteButton />
+      <AppointmentForm />
     </Scheduler>
   </Paper>
 );

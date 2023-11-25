@@ -1,82 +1,67 @@
-import {MouseEvent, useCallback, useState} from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useState } from 'react';
 import './App.css';
+import { useAppDispatch, useAppSelector } from './redux/reducer';
+import { Calendar } from './components/Calendar/Calendar';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { updateAppointments } from './redux/uiSlice';
+import Beds from './components/Beds/Bed';
+import { annotations } from './components/Beds/Bed.stories';
 import styles from './App.module.css';
-import {useAppDispatch, useAppSelector} from './redux/reducer';
-import {decrement, increment} from './redux/uiSlice';
-import {useFetchCatsQuery} from './redux/catApiSlice';
-import {Calendar} from './components/Calendar/Calendar';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import Beds from "./components/Beds/Bed.tsx";
-import {annotations} from "./components/Beds/Bed.stories.ts";
-import {ThemeProvider} from '@mui/material';
-import {theme} from "./theme/theme.ts";
-import MenuAppBar from "./components/menu/MenuAppbar.tsx";
 
 function App() {
-    const dispatch = useAppDispatch();
-    const count = useAppSelector((state) => state.ui.count);
-    const handleCounterClick = useCallback(() => {
-        dispatch(increment());
-    }, [dispatch]);
+  const dispatch = useAppDispatch();
+  const appointments = useAppSelector((state) => state.ui.appointments);
+  const handleAppointmentsEdit = useCallback(
+    (appointmentsChange: any) => {
+      dispatch(updateAppointments(appointmentsChange));
+    },
+    [dispatch],
+  );
 
-    const handleContextMenu = useCallback(
-        (evt: MouseEvent<HTMLButtonElement>) => {
-            dispatch(decrement());
-            evt.preventDefault();
-        },
-        [dispatch],
-    );
-
-    const [today, _] = useState(new Date());
-    const cats = useFetchCatsQuery(count);
-    const catUrl = cats.data ? cats.data[0]?.url : undefined;
-    return (
-        <ThemeProvider theme={theme}>
-            <BrowserRouter>
-                <MenuAppBar/>
-
-                <Routes>
-                    <Route path="/" element={<div>test</div>}/>
-                    <Route path="/story" element={<div/>}/>
-                    <Route path="/beds" element={<Beds annotations={annotations}/>}/>
-                </Routes>
-            </BrowserRouter>
-
-      <Calendar
-        currentDate={today}
-        viewType="switcher"
-        schedulerData={[
-          {
-            startDate: new Date('2018-11-01T09:45'),
-            endDate: new Date('2018-11-01T11:00'),
-            title: 'Meeting',
-          },
-          {
-            startDate: new Date('2018-11-01T12:00'),
-            endDate: new Date('2018-11-01T13:30'),
-            title: 'Go to a gym',
-          },
-          {
-            startDate: new Date('2018-11-01T11:32'),
-            endDate: new Date('2018-11-01T12:29'),
-            title: 'Drink with friends 🍻',
-          },
-          {
-            startDate: new Date('2018-11-01T11:32'),
-            endDate: new Date('2018-11-02T11:31'),
-            title: 'Drinks 🍻',
-          },
-        ]}
-      />
-      <div className={styles.card}>
-        <button onClick={handleCounterClick} onContextMenu={handleContextMenu}>
-          count is {count}
-        </button>
-        {catUrl && <img src={catUrl} />}
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+  const [today, _] = useState(new Date());
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className={styles.mainPage}>
+                <Link to={'/beds'}>Beds</Link>
+                <Link to={'/schedule'}>Scheduler</Link>
+              </div>
+            }
+          />
+          <Route
+            path="/schedule"
+            element={
+              <>
+                <Link to={'/'} className={styles.topNav}>
+                  Home
+                </Link>
+                <Calendar
+                  currentDate={today}
+                  viewType="switcher"
+                  schedulerData={appointments}
+                  onCommitChanges={handleAppointmentsEdit}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/beds"
+            element={
+              <>
+                <Link to={'/'} className={styles.topNav}>
+                  Home
+                </Link>
+                <Beds annotations={annotations} />
+              </>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
