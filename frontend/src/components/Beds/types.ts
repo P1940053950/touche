@@ -17,3 +17,13 @@ export interface User {
   email: string;
   cancerType: string;
 }
+
+export interface SchedulerDataPoint {
+  id: number;
+  startDate: Date;
+  endDate: Date;
+  title: string;
+  machine: string;
+}
+
+export type SchedulerDataArray = Array<SchedulerDataPoint>;

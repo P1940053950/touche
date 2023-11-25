@@ -6,45 +6,6 @@ import classNames from 'classnames';
 import HotelIcon from '@mui/icons-material/Hotel';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { AnnotationData } from './types';
-import { useAppSelector } from '../../redux/reducer';
-
-const Annotation = ({ x, y, width, height, occupiedPlaces, freePlaces }) => {
-  const [openModal, setOpenModal] = React.useState<boolean>(false);
-  const [isHovered, setIsHovered] = React.useState<boolean>(false);
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const isfree = freePlaces === 0;
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        left: x,
-        top: y,
-        width: width,
-        height: height,
-        opacity: 0.6,
-        border: !isfree ? '2px solid green' : '2px solid red',
-        backgroundColor:
-          isHovered || openModal ? (!isfree ? 'green' : 'red') : 'transparent',
-        transition:
-          'border 0.3s ease-in-out, background-color 0.3s ease-in-out',
-      }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleOpenModal}
-    ></div>
-  );
-};
 
 const freeRoomBackground = `repeating-linear-gradient(
   45deg,
@@ -84,12 +45,14 @@ const Room: FC<{
   setSelectedAnnotation: React.Dispatch<
     React.SetStateAction<number | undefined>
   >;
+  zoomRatio: number;
 }> = ({
   annotation,
   index,
   selectedAnnotation,
   setHoveredAnnotation,
   setSelectedAnnotation,
+  zoomRatio,
 }) => {
   return (
     <div
@@ -99,10 +62,10 @@ const Room: FC<{
         [styles.fullRoom]: annotation.freePlaces === 0,
       })}
       style={{
-        left: annotation.x,
-        top: annotation.y,
-        width: annotation.width,
-        height: annotation.height,
+        left: annotation.x * zoomRatio,
+        top: annotation.y * zoomRatio,
+        width: annotation.width * zoomRatio,
+        height: annotation.height * zoomRatio,
         background:
           annotation.freePlaces === 0
             ? fullRoomBackground
@@ -150,20 +113,22 @@ const UserSmallCard: FC<{ username: string }> = ({ username }) => {
   );
 };
 
+const newWidth = 1500;
+const originalWidth = 1582;
+const zoomRatio = newWidth / originalWidth;
 const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
   annotations,
 }) => {
   const [selectedAnnotation, setSelectedAnnotation] = useState<number>();
   const [hoveredAnnotation, setHoveredAnnotation] = useState<number>();
   return (
-    <div style={{ position: 'relative', height: '731px', width: '1582px' }}>
+    <div style={{ position: 'relative' }}>
       {/*<div style={{ position: 'relative', width: '100%', height: '100%' }}>*/}
       <Card>
         <CardMedia
           component="img"
-          alt="Annotated Image"
-          height="731px"
-          width={'1582px'}
+          alt="Annotated Florplan"
+          style={{ width: `${newWidth}px` }}
           image={'floorplan.jpg'}
         />
       </Card>
@@ -175,14 +140,15 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
             selectedAnnotation={selectedAnnotation}
             setHoveredAnnotation={setHoveredAnnotation}
             setSelectedAnnotation={setSelectedAnnotation}
+            zoomRatio={zoomRatio}
           />
           <div>
             {index === hoveredAnnotation && (
               <Paper
                 style={{
                   position: 'absolute',
-                  left: annotation.x,
-                  top: annotation.y,
+                  left: annotation.x * zoomRatio,
+                  top: annotation.y * zoomRatio,
                   opacity: 1,
                   transform: 'translateX(-50%)',
                   padding: '5px',
@@ -209,14 +175,7 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
 const Beds: FC<{ annotations: AnnotationData[] }> = ({ annotations }) => {
   return (
     <Container>
-      <Typography
-        variant="h3"
-        component="div"
-        style={{ textAlign: 'left', width: '48%', marginTop: '4%' }}
-      >
-        Book a room
-      </Typography>
-      <Box marginTop={4}>
+      <Box>
         <Paper elevation={3} style={{ padding: 20 }}>
           <div style={{ backgroundColor: '#e0e0e0' }}>
             <AnnotationContainer annotations={annotations} />
