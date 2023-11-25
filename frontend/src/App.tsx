@@ -3,12 +3,12 @@ import { useCallback, useState } from 'react';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './redux/reducer';
 import { Calendar } from './components/Calendar/Calendar';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { updateAppointments } from './redux/uiSlice';
 import Beds from './components/Beds/Bed';
-import styles from './App.module.css';
 import MenuAppBar from './components/menu/MenuAppbar.tsx';
 import annotations from './components/Beds/Annotation';
+import { Page } from './components/Page/Page.tsx';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -22,12 +22,29 @@ function App() {
 
   const [today, _] = useState(new Date());
   return (
-    <>
+    <Theme>
       <BrowserRouter>
         <MenuAppBar></MenuAppBar>
 
         <Routes>
-          <Route path="/" element={<div className={styles.mainPage}></div>} />
+          <Route
+            path="/"
+            element={
+              <Page
+                topLeft={<div>top left</div>}
+                topRight={<Beds annotations={annotations} />}
+                bottomLeft={<div>bottom left</div>}
+                bottomRight={
+                  <Calendar
+                    currentDate={today}
+                    viewType="switcher"
+                    schedulerData={appointments}
+                    onCommitChanges={handleAppointmentsEdit}
+                  />
+                }
+              />
+            }
+          />
           <Route
             path="/calendar"
             element={
