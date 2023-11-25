@@ -9,6 +9,8 @@ import Beds from './components/Beds/Bed';
 import MenuAppBar from './components/menu/MenuAppbar.tsx';
 import annotations from './components/Beds/Annotation';
 import { Page } from './components/Page/Page.tsx';
+import { ThemeProvider } from '@mui/material';
+import { theme } from './theme/theme.ts';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -22,7 +24,7 @@ function App() {
 
   const [today, _] = useState(new Date());
   return (
-    <Theme>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <MenuAppBar></MenuAppBar>
 
@@ -59,7 +61,7 @@ function App() {
           <Route path="/beds" element={<Beds annotations={annotations} />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   );
 }
 
