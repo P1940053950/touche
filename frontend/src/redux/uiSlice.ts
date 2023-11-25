@@ -1,5 +1,6 @@
 // Import createSlice and configureStore from Redux Toolkit
 import { createSlice } from '@reduxjs/toolkit';
+import { User } from '../components/Beds/Bed';
 
 const initialState = {
   appointments: [
@@ -27,6 +28,24 @@ const initialState = {
       endDate: new Date('2023-11-25T11:31'),
       title: 'Drinks 🍻',
     },
+  ],
+  selectedUser: null as User | null,
+  users: [
+    {
+      label: 'User 1',
+      value: 'user1',
+      phoneNumber: '123-456-7890',
+      email: 'user1@example.com',
+      cancerType: 'Lung Cancer',
+    },
+    {
+      label: 'User 2',
+      value: 'user2',
+      phoneNumber: '987-654-3210',
+      email: 'user2@example.com',
+      cancerType: 'Breast Cancer',
+    },
+    // Add more users as needed
   ],
 };
 
@@ -61,7 +80,13 @@ export const uiSlice = createSlice({
         );
       }
     },
+    selectUser: (state, action) => {
+      state.selectedUser = action.payload;
+    },
+    updateUsers: (state, action) => {
+      state.users = action.payload;
+    },
   },
 });
 
-export const { updateAppointments } = uiSlice.actions;
+export const { updateAppointments, selectUser, updateUsers } = uiSlice.actions;

@@ -11,6 +11,7 @@ import annotations from './components/Beds/Annotation';
 import { Page } from './components/Page/Page.tsx';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './theme/theme.ts';
+import { UserSearchBox } from './components/Beds/UserSearch.tsx';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,7 +34,11 @@ function App() {
             path="/"
             element={
               <Page
-                topLeft={<div>top left</div>}
+                topLeft={
+                  <div>
+                    <UserSearchBox />
+                  </div>
+                }
                 topRight={<Beds annotations={annotations} />}
                 bottomLeft={<div>bottom left</div>}
                 bottomRight={

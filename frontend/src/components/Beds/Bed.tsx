@@ -1,17 +1,5 @@
 import React, { FC, useState } from 'react';
-import {
-  Card,
-  CardMedia,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Box,
-  Paper,
-  Container,
-  Autocomplete,
-  TextField,
-} from '@mui/material';
+import { Card, CardMedia, Box, Paper, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import styles from './Bed.module.css';
 import classNames from 'classnames';
@@ -202,85 +190,18 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
   );
 };
 
-const Beds = ({ annotations }) => {
-  const [selectedUser, setSelectedUser] = useState(null);
-  const users = [
-    {
-      label: 'User 1',
-      value: 'user1',
-      phoneNumber: '123-456-7890',
-      email: 'user1@example.com',
-      cancerType: 'Lung Cancer',
-    },
-    {
-      label: 'User 2',
-      value: 'user2',
-      phoneNumber: '987-654-3210',
-      email: 'user2@example.com',
-      cancerType: 'Breast Cancer',
-    },
-    // Add more users as needed
-  ];
-
-  const handleUserSelect = (event, value) => {
-    setSelectedUser(value);
-  };
-
+export interface User {
+  label: string;
+  value: string;
+  phoneNumber: string;
+  email: string;
+  cancerType: string;
+}
+const Beds: FC<{ annotations: AnnotationData[] }> = ({ annotations }) => {
   return (
     <Container>
-      <Box display="flex" marginTop={4}>
-        <Paper
-          elevation={3}
-          style={{
-            padding: 20,
-            width: '48%',
-            marginRight: '4%',
-            textAlign: 'center',
-            minHeight: '150px',
-          }}
-        >
-          <Autocomplete
-            options={users}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField {...params} label="Search Users" variant="outlined" />
-            )}
-            onChange={handleUserSelect}
-          />
-        </Paper>
-
-        <Paper
-          elevation={3}
-          style={{
-            padding: 20,
-            width: '48%',
-            textAlign: 'left',
-            minHeight: '150px',
-          }}
-        >
-          <div>
-            {selectedUser && (
-              <>
-                <Typography variant="body1" style={{ marginBottom: 8 }}>
-                  Name: {selectedUser.label}
-                </Typography>
-                <Typography variant="body1" style={{ marginBottom: 8 }}>
-                  Email: {selectedUser.email}
-                </Typography>
-                <Typography variant="body1" style={{ marginBottom: 8 }}>
-                  Phone Number: {selectedUser.phoneNumber}
-                </Typography>
-                <Typography variant="body1">
-                  Cancer Type: {selectedUser.cancerType}
-                </Typography>
-              </>
-            )}
-          </div>
-        </Paper>
-      </Box>
       <Typography
         variant="h3"
-        color="inherit"
         component="div"
         style={{ textAlign: 'left', width: '48%', marginTop: '4%' }}
       >
@@ -292,10 +213,6 @@ const Beds = ({ annotations }) => {
             <AnnotationContainer annotations={annotations} />
           </div>
         </Paper>
-      </Box>
-
-      <Box marginTop={4}>
-        <Paper elevation={3} style={{ padding: 20 }}></Paper>
       </Box>
     </Container>
   );
