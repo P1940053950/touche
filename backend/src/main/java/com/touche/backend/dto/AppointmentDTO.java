@@ -20,6 +20,8 @@ public class AppointmentDTO {
     private Patient patient;
     private Machine machine;
     private Date date;
+    private Date startDate;
+    private Date endDate;
 
     public AppointmentDTO(Appointment appointment) {
         this.id = appointment.getId();
@@ -27,5 +29,7 @@ public class AppointmentDTO {
         this.patient = appointment.getPatient();
         this.machine = appointment.getMachine();
         this.date = appointment.getDate();
+        this.startDate = appointment.getStartDate();
+        this.endDate = appointment.getEndDate();
     }
 }
