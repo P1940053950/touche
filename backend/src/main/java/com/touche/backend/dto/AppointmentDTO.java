@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,11 +19,13 @@ public class AppointmentDTO {
     private Integer duration;
     private Patient patient;
     private Machine machine;
+    private Date date;
 
     public AppointmentDTO(Appointment appointment) {
         this.id = appointment.getId();
         this.duration = appointment.getDuration();
         this.patient = appointment.getPatient();
         this.machine = appointment.getMachine();
+        this.date = appointment.getDate();
     }
 }
