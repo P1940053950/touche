@@ -25,7 +25,7 @@ export const UserSearchBox: FC = () => {
   );
   return (
     <Container>
-      <Box display="flex" marginTop={4} flexDirection={'column'} gap={'8px'}>
+      <Box display="flex" flexDirection={'column'} gap={'8px'}>
         <Paper
           elevation={3}
           style={{

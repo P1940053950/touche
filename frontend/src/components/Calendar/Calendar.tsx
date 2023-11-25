@@ -19,16 +19,11 @@ import {
   ConfirmationDialog,
   AppointmentTooltip,
   AppointmentForm,
+  Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { FC } from 'react';
-
-interface SchedulerDataPoint {
-  id: number;
-  startDate: Date;
-  endDate: Date;
-  title: string;
-}
-export type SchedulerDataArray = Array<SchedulerDataPoint>;
+import { useAppSelector } from '../../redux/reducer';
+import { SchedulerDataArray } from '../Beds/types';
 
 const PREFIX = 'TreatmentCalendar';
 
@@ -110,32 +105,36 @@ export const Calendar: FC<{
   schedulerData: SchedulerDataArray;
   viewType: 'day' | 'week' | 'month' | 'switcher';
   onCommitChanges: (...args: any[]) => void;
-}> = ({ schedulerData, currentDate, viewType, onCommitChanges }) => (
-  <Paper>
-    <Scheduler data={schedulerData} firstDayOfWeek={1}>
-      <ViewState defaultCurrentDate={currentDate} />
-      <EditingState onCommitChanges={onCommitChanges} />
-      <IntegratedEditing />
-      {(viewType === 'day' || viewType === 'switcher') && (
-        <DayView startDayHour={9} endDayHour={14} />
-      )}
-      {(viewType === 'week' || viewType === 'switcher') && (
-        <WeekView
-          startDayHour={9}
-          endDayHour={19}
-          timeTableCellComponent={TimeTableCell}
-          dayScaleCellComponent={DayScaleCell}
-        />
-      )}
-      {(viewType === 'month' || viewType === 'switcher') && <MonthView />}
-      <Toolbar />
-      {viewType === 'switcher' && <ViewSwitcher />}
-      <ConfirmationDialog />
-      <DateNavigator />
-      <TodayButton />
-      <Appointments />
-      <AppointmentTooltip showOpenButton showDeleteButton />
-      <AppointmentForm />
-    </Scheduler>
-  </Paper>
-);
+}> = ({ schedulerData, currentDate, viewType, onCommitChanges }) => {
+  const machines = useAppSelector((state) => state.ui.machines);
+  return (
+    <Paper>
+      <Scheduler data={schedulerData} firstDayOfWeek={1}>
+        <ViewState defaultCurrentDate={currentDate} />
+        <EditingState onCommitChanges={onCommitChanges} />
+        <IntegratedEditing />
+        {(viewType === 'day' || viewType === 'switcher') && (
+          <DayView startDayHour={9} endDayHour={19} />
+        )}
+        {(viewType === 'week' || viewType === 'switcher') && (
+          <WeekView
+            startDayHour={9}
+            endDayHour={19}
+            timeTableCellComponent={TimeTableCell}
+            dayScaleCellComponent={DayScaleCell}
+          />
+        )}
+        {(viewType === 'month' || viewType === 'switcher') && <MonthView />}
+        <Toolbar />
+        {viewType === 'switcher' && <ViewSwitcher />}
+        <ConfirmationDialog />
+        <DateNavigator />
+        <TodayButton />
+        <Appointments />
+        <AppointmentTooltip showOpenButton showDeleteButton />
+        <AppointmentForm />
+        <Resources data={[machines]} mainResourceName={'machine'} />
+      </Scheduler>
+    </Paper>
+  );
+};
