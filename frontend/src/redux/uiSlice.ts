@@ -1,6 +1,6 @@
 // Import createSlice and configureStore from Redux Toolkit
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '../components/Beds/Bed';
+import { User } from '../components/Beds/types';
 
 const initialState = {
   appointments: [
@@ -32,6 +32,7 @@ const initialState = {
   selectedUser: null as User | null,
   users: [
     {
+      id: 'User1',
       label: 'User 1',
       value: 'user1',
       phoneNumber: '123-456-7890',
@@ -39,6 +40,7 @@ const initialState = {
       cancerType: 'Lung Cancer',
     },
     {
+      id: 'User2',
       label: 'User 2',
       value: 'user2',
       phoneNumber: '987-654-3210',

@@ -8,9 +8,9 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useCallback } from 'react';
-import { User } from './Bed';
 import { useAppDispatch, useAppSelector } from '../../redux/reducer';
 import { selectUser } from '../../redux/uiSlice';
+import { User } from './types';
 
 export const UserSearchBox: FC = () => {
   const dispatch = useAppDispatch();

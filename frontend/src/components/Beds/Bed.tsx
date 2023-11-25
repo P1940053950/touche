@@ -5,7 +5,8 @@ import styles from './Bed.module.css';
 import classNames from 'classnames';
 import HotelIcon from '@mui/icons-material/Hotel';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { AnnotationData } from './Annotation';
+import { AnnotationData } from './types';
+import { useAppSelector } from '../../redux/reducer';
 
 const Annotation = ({ x, y, width, height, occupiedPlaces, freePlaces }) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
@@ -121,7 +122,20 @@ const Room: FC<{
     >
       <HotelIcon
         className={styles.roomIcon}
-        style={{ color: getColor(annotation.freePlaces) }}
+        style={{
+          color:
+            index === selectedAnnotation
+              ? 'white'
+              : getColor(annotation.freePlaces),
+          background:
+            index === selectedAnnotation
+              ? getColor(annotation.freePlaces)
+              : 'white',
+          border:
+            index === selectedAnnotation
+              ? 'white 3px solid'
+              : `${getColor(annotation.freePlaces)} 3px solid`,
+        }}
       />
     </div>
   );
@@ -142,15 +156,14 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
   const [selectedAnnotation, setSelectedAnnotation] = useState<number>();
   const [hoveredAnnotation, setHoveredAnnotation] = useState<number>();
   return (
-    <div style={{ position: 'relative'  ,  height:"731px",
-        width: "1582px" }}>
-    {/*<div style={{ position: 'relative', width: '100%', height: '100%' }}>*/}
+    <div style={{ position: 'relative', height: '731px', width: '1582px' }}>
+      {/*<div style={{ position: 'relative', width: '100%', height: '100%' }}>*/}
       <Card>
         <CardMedia
           component="img"
           alt="Annotated Image"
           height="731px"
-          width={"1582px"}
+          width={'1582px'}
           image={'floorplan.jpg'}
         />
       </Card>
@@ -177,9 +190,9 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
                   border: '1px solid lightblue',
                 }}
               >
-                {annotation.usernames.length > 0 ? (
-                  annotation.usernames.map((username, idx) => (
-                    <UserSmallCard key={idx} username={username} />
+                {annotation.users.length > 0 ? (
+                  annotation.users.map((userId, idx) => (
+                    <UserSmallCard key={idx} username={userId} />
                   ))
                 ) : (
                   <Typography variant="subtitle1">Empty Room</Typography>
@@ -193,13 +206,6 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
   );
 };
 
-export interface User {
-  label: string;
-  value: string;
-  phoneNumber: string;
-  email: string;
-  cancerType: string;
-}
 const Beds: FC<{ annotations: AnnotationData[] }> = ({ annotations }) => {
   return (
     <Container>
