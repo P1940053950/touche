@@ -173,6 +173,13 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
 };
 
 const Beds: FC<{ annotations: AnnotationData[] }> = ({ annotations }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+
+  }, [location]);
+
+
   return (
     <Container>
       <Box>
