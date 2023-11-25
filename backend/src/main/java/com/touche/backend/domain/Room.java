@@ -24,4 +24,6 @@ public class Room {
     private long id;
 
     private String name;
+
+    private Integer capacity;
 }

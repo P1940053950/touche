@@ -25,25 +25,27 @@ VALUES
     ('2023-11-26 14:30:00', 2, '2023-11-26 10:00:00'),
     ('2023-11-27 16:45:00', 3, '2023-11-27 13:30:00');
 
-INSERT INTO patient (cancer_type_id, created_at, room_reservation_id, email, name, phone)
-VALUES
-    (35,CURRENT_TIMESTAMP, 1, 'john.doe@example.com', 'John Doe','+1-555-1234'),
-    (32, CURRENT_TIMESTAMP, 2, 'ivan.ivanov@example.com', 'Ivan Ivanov', '8-800-555-35-35'),
-    (33, CURRENT_TIMESTAMP, 1, 'jane.doe@example.com', 'Jane Doe', '+1-555-9876'),
-    (37, CURRENT_TIMESTAMP, 3, 'alex.smith@example.com', 'Alex Smith', '+1-555-1234'),
-    (34, CURRENT_TIMESTAMP, 2, 'lisa.jones@example.com', 'Lisa Jones', '+1-555-5678');
+INSERT INTO patient (cancer_type_id, created_at, id, room_reservation_id, email, name, phone) VALUES
+     (11, CURRENT_TIMESTAMP, 1, 4, 'john.doe@example.com', 'John Doe','+1-555-1234'),
+     (12, CURRENT_TIMESTAMP, 2, 5, 'ivan.ivanov@example.com', 'Ivan Ivanov', '8-800-555-35-35'),
+     (13, CURRENT_TIMESTAMP, 3, 6, 'jane.doe@example.com', 'Jane Doe', '+1-555-9876');
+
+INSERT INTO patient (cancer_type_id, created_at, id, email, name, phone) VALUES
+     (14, CURRENT_TIMESTAMP, 4, 'alex.smith@example.com', 'Alex Smith', '+1-555-1234'),
+     (15, CURRENT_TIMESTAMP, 5, 'lisa.jones@example.com', 'Lisa Jones', '+1-555-5678');
+
 
 INSERT INTO machine_cancer_type (cancer_type_id, machine_id) VALUES
-                                                                 (35, 1),
-                                                                 (38, 2),
-                                                                 (33, 3),
-                                                                 (37, 4),
-                                                                 (31, 5),
-                                                                 (34, 1);
+                                                                 (11, 1),
+                                                                 (12, 2),
+                                                                 (13, 3),
+                                                                 (14, 4),
+                                                                 (15, 5),
+                                                                 (16, 1);
 
 INSERT INTO appointment (duration, date, id, machine_id, patient_id) VALUES
-(20, '2023-11-25 15:00:00', 1, 1, 12),
-(30, '2023-11-26 12:00:00', 2, 2, 13),
-(25, '2023-11-27 11:00:00', 3, 3, 14),
-(20, '2023-11-28 10:00:00', 4, 4, 15),
-(30, '2023-11-26 17:00:00', 5, 5, 16);
+(20, '2023-11-25 15:00:00', 1, 1, 1),
+(30, '2023-11-26 12:00:00', 2, 2, 2),
+(25, '2023-11-27 11:00:00', 3, 3, 3),
+(20, '2023-11-28 10:00:00', 4, 4, 4),
+(30, '2023-11-26 17:00:00', 5, 5, 5);

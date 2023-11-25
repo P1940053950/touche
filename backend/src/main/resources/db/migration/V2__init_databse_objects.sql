@@ -31,10 +31,10 @@ alter table cancer_type
 
 create table machine_cancer_type
 (
-    cancer_type_id bigint not null
+    cancer_type_id bigint
         constraint fkr1kh0d91jsm7ssr68t5ii2aj9
             references cancer_type,
-    machine_id     bigint not null
+    machine_id     bigint
         constraint fk4kjfkwq6jr3f4vwqpwij9je9q
             references machine,
     primary key (cancer_type_id, machine_id)
@@ -47,7 +47,8 @@ create table room
 (
     id   bigserial
         primary key,
-    name varchar(255)
+    name varchar(255),
+    capacity int
 );
 
 alter table room
@@ -55,14 +56,13 @@ alter table room
 
 create table room_reservation
 (
-    end_date   timestamp(6),
+    end_date   date,
     id         bigserial
         primary key,
-    room_id    bigint
-        unique
-        constraint fk19p6c3un3mbs7b7bxkcxk8xn2
-            references room,
-    start_date timestamp(6)
+    room_id    bigint,
+    start_date date,
+        foreign key (room_id)
+        references room
 );
 
 alter table room_reservation
@@ -70,13 +70,13 @@ alter table room_reservation
 
 create table patient
 (
-    cancer_type_id      bigint not null
+    cancer_type_id      bigint
         constraint fk2pm694u9x8u0r1ry4ywbmwp7c
             references cancer_type,
-    created_at          timestamp(6),
+    created_at          timestamp,
     id                  bigserial
         primary key,
-    room_reservation_id bigint not null
+    room_reservation_id bigint
         constraint fks5fyig9xh3tkpr19yf9733ftq
             references room_reservation,
     email               varchar(255),
@@ -90,13 +90,15 @@ alter table patient
 create table appointment
 (
     duration   integer,
-    date       timestamp(6),
+    date       timestamp,
+    start_date       timestamp,
+    end_date       timestamp,
     id         bigserial
         primary key,
-    machine_id bigint not null
+    machine_id bigint
         constraint fk3f0xddtmlvpofv29iwyyt4bhm
             references machine,
-    patient_id bigint not null
+    patient_id bigint
         constraint fk4apif2ewfyf14077ichee8g06
             references patient
 );

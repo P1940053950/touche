@@ -37,4 +37,8 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_id")
     private Machine machine;
+
+    private Date startDate;
+
+    private Date endDate;
 }
