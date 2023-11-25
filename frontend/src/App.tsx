@@ -8,6 +8,7 @@ import { updateAppointments } from './redux/uiSlice';
 import Beds from './components/Beds/Bed';
 import { annotations } from './components/Beds/Bed.stories';
 import styles from './App.module.css';
+import MenuAppBar from "./components/menu/MenuAppbar.tsx";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,7 +24,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
+          <MenuAppBar></MenuAppBar>
+
+          <Routes>
           <Route
             path="/"
             element={
