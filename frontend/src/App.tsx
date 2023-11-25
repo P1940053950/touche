@@ -22,7 +22,7 @@ function App() {
 
   const [today, _] = useState(new Date());
   return (
-    <>
+    <Theme>
       <BrowserRouter>
         <MenuAppBar></MenuAppBar>
 
