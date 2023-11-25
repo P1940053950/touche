@@ -31,10 +31,10 @@ public class Appointment {
 //    private CancerType cancerType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "machine_id", nullable = false)
+    @JoinColumn(name = "machine_id")
     private Machine machine;
 }

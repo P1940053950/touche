@@ -28,14 +28,14 @@ public class Patient {
     private Date createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cancer_type_id", nullable = false)
+    @JoinColumn(name = "cancer_type_id")
     private CancerType cancerType;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Appointment> appointments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_reservation_id", nullable = false)
+    @JoinColumn(name = "room_reservation_id")
     private RoomReservation roomReservation;
 
     // urgency
