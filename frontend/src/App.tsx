@@ -1,44 +1,47 @@
-import { MouseEvent, useCallback, useState } from 'react';
+import {MouseEvent, useCallback, useState} from 'react';
 import './App.css';
 import styles from './App.module.css';
-import { useAppDispatch, useAppSelector } from './redux/reducer';
-import { decrement, increment } from './redux/uiSlice';
-import { useFetchCatsQuery } from './redux/catApiSlice';
-import { Calendar } from './components/Calendar/Calendar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from './redux/reducer';
+import {decrement, increment} from './redux/uiSlice';
+import {useFetchCatsQuery} from './redux/catApiSlice';
+import {Calendar} from './components/Calendar/Calendar';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import Beds from "./components/Beds/Bed.tsx";
+import {annotations} from "./components/Beds/Bed.stories.ts";
+import {ThemeProvider} from '@mui/material';
+import {theme} from "./theme/theme.ts";
+import MenuAppBar from "./components/menu/MenuAppbar.tsx";
 
 function App() {
-  const dispatch = useAppDispatch();
-  const count = useAppSelector((state) => state.ui.count);
-  const handleCounterClick = useCallback(() => {
-    dispatch(increment());
-  }, [dispatch]);
+    const dispatch = useAppDispatch();
+    const count = useAppSelector((state) => state.ui.count);
+    const handleCounterClick = useCallback(() => {
+        dispatch(increment());
+    }, [dispatch]);
 
-  const handleContextMenu = useCallback(
-    (evt: MouseEvent<HTMLButtonElement>) => {
-      dispatch(decrement());
-      evt.preventDefault();
-    },
-    [dispatch],
-  );
+    const handleContextMenu = useCallback(
+        (evt: MouseEvent<HTMLButtonElement>) => {
+            dispatch(decrement());
+            evt.preventDefault();
+        },
+        [dispatch],
+    );
 
-  const [today, _] = useState(new Date());
-  const cats = useFetchCatsQuery(count);
-  const catUrl = cats.data ? cats.data[0]?.url : undefined;
-  return (
-    <>
-      <BrowserRouter>
+    const [today, _] = useState(new Date());
+    const cats = useFetchCatsQuery(count);
+    const catUrl = cats.data ? cats.data[0]?.url : undefined;
+    return (
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <MenuAppBar/>
 
-        <Routes>
-          <Route path="/" element={<div>test</div>} />
-          <Route path="/story" element={<div />} />
-        </Routes>
-      </BrowserRouter>
-
-    {/* <Routes>
+                <Routes>
                     <Route path="/" element={<div>test</div>}/>
-                    <Route path="/story" element={<StoryLayout/>}/>
-                </Routes> */}
+                    <Route path="/story" element={<div/>}/>
+                    <Route path="/beds" element={<Beds annotations={annotations}/>}/>
+                </Routes>
+            </BrowserRouter>
+
       <Calendar
         currentDate={today}
         viewType="switcher"
