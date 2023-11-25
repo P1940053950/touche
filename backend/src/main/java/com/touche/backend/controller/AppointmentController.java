@@ -5,7 +5,6 @@ import com.touche.backend.domain.Appointment;
 import com.touche.backend.dto.AppointmentDTO;
 import com.touche.backend.service.AppointmentService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,6 @@ import java.util.stream.Collectors;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
-
-//    @Autowired
-//    private Something;
 
     @PostMapping(path = "/")
     public ResponseEntity<?> authenticate(@RequestBody Object object) {
@@ -46,6 +42,13 @@ public class AppointmentController {
                                       @PathVariable(name = "id") long id) {
         Appointment updatedAppointment = appointmentService.updateAppointment(id, dto);
         return toAppointmentDTO(updatedAppointment);
+    }
+
+    @PostMapping(path = "/scheduleAppointment")
+    public AppointmentDTO scheduleAppointment(@RequestBody ScheduleDto id) {
+
+
+        return new AppointmentDTO();
     }
 
     @DeleteMapping(path = "/{id}")
