@@ -1,105 +1,108 @@
 export interface AnnotationData {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  occupiedPlaces: number;
-  freePlaces: number;
-  id: number;
-  usernames: string[];
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    occupiedPlaces: number;
+    freePlaces: number;
+    id: number;
+    usernames: string[];
 }
 
 export const annotations: AnnotationData[] = [
-  {
-    x: 174,
-    y: 383,
-    width: 160,
-    height: 149,
-    occupiedPlaces: 2,
-    freePlaces: 2,
-    id: 1,
-    usernames: ['User55', 'User52'],
-  },
-  {
-    x: 916,
-    y: 512,
-    width: 156,
-    height: 159,
-    occupiedPlaces: 1,
-    freePlaces: 3,
-    id: 2,
-    usernames: ['User3'],
-  },
-  {
-    x: 913,
-    y: 320,
-    width: 167,
-    height: 157,
-    occupiedPlaces: 3,
-    freePlaces: 1,
-    id: 3,
-    usernames: ['User4', 'User5', 'User6'],
-  },
-  {
-    x: 761,
-    y: 23,
-    width: 145,
-    height: 154,
-    occupiedPlaces: 0,
-    freePlaces: 4,
-    id: 4,
-    usernames: [],
-  },
-  {
-    x: 159,
-    y: 107,
-    width: 78,
-    height: 70,
-    occupiedPlaces: 1,
-    freePlaces: 0,
-    id: 5,
-    usernames: ['User7'],
-  },
-  {
-    x: 267,
-    y: 112,
-    width: 87,
-    height: 70,
-    occupiedPlaces: 2,
-    freePlaces: 2,
-    id: 6,
-    usernames: ['User8', 'User9'],
-  },
-  {
-    x: 383,
-    y: 93,
-    width: 83,
-    height: 83,
-    occupiedPlaces: 3,
-    freePlaces: 1,
-    id: 7,
-    usernames: ['User10', 'User11', 'User12'],
-  },
-  {
-    x: 614,
-    y: 109,
-    width: 82,
-    height: 69,
-    occupiedPlaces: 1,
-    freePlaces: 3,
-    id: 8,
-    usernames: ['User13'],
-  },
-  {
-    x: 381,
-    y: 520,
-    width: 91,
-    height: 81,
-    occupiedPlaces: 0,
-    freePlaces: 4,
-    id: 9,
-    usernames: [],
-  },
+    {
+        "x": 82,
+        "y": 153,
+        "width": 129,
+        "height": 184,
+        "occupiedPlaces": 3,
+        "freePlaces": 1,
+        "id": 87,
+        "usernames": ["User1", "User2", "User3"]
+    },
+    {
+        "x": 219,
+        "y": 153,
+        "width": 120,
+        "height": 184,
+        "occupiedPlaces": 5,
+        "freePlaces": 2,
+        "id": 46,
+        "usernames": ["User1", "User2", "User3", "User4", "User5"]
+    },
+    {
+        "x": 348,
+        "y": 155,
+        "width": 126,
+        "height": 181,
+        "occupiedPlaces": 1,
+        "freePlaces": 3,
+        "id": 73,
+        "usernames": ["User1"]
+    },
+    {
+        "x": 907,
+        "y": 160,
+        "width": 120,
+        "height": 178,
+        "occupiedPlaces": 4,
+        "freePlaces": 3,
+        "id": 25,
+        "usernames": ["User1", "User2", "User3", "User4"]
+    },
+    {
+
+        "x": 1036,
+        "y": 158,
+        "width": 125,
+        "height": 179,
+        "occupiedPlaces": 1,
+        "freePlaces": 3,
+        "id": 32,
+        "usernames": ["User1"]
+    },
+    {
+
+        "x": 187,
+        "y": 391,
+        "width": 119,
+        "height": 97,
+        "occupiedPlaces": 2,
+        "freePlaces": 2,
+        "id": 45,
+        "usernames": ["User1", "User2"]
+    },
+    {
+
+        "x": 316,
+        "y": 391,
+        "width": 122,
+        "height": 97,
+        "occupiedPlaces": 3,
+        "freePlaces": 2,
+        "id": 79,
+        "usernames": ["User1", "User2", "User3"]
+    },
+    {
+        "x": 901,
+        "y": 391,
+        "width": 122,
+        "height": 97,
+        "occupiedPlaces": 2,
+        "freePlaces": 2,
+        "id": 36,
+        "usernames": ["User1", "User2"]
+    },
+    {
+        "x": 1030,
+        "y": 391,
+        "width": 129,
+        "height": 97,
+        "occupiedPlaces": 5,
+        "freePlaces": 0,
+        "id": 14,
+        "usernames": ["User1", "User2", "User3", "User4", "User5"]
+    }
 ];
 
 export default annotations;

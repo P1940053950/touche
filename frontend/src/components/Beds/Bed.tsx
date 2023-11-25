@@ -142,13 +142,16 @@ const AnnotationContainer: FC<{ annotations: AnnotationData[] }> = ({
   const [selectedAnnotation, setSelectedAnnotation] = useState<number>();
   const [hoveredAnnotation, setHoveredAnnotation] = useState<number>();
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div style={{ position: 'relative'  ,  height:"731px",
+        width: "1582px" }}>
+    {/*<div style={{ position: 'relative', width: '100%', height: '100%' }}>*/}
       <Card>
         <CardMedia
           component="img"
           alt="Annotated Image"
-          height="100%"
-          image={'floorPlan.png'}
+          height="731px"
+          width={"1582px"}
+          image={'floorplan.jpg'}
         />
       </Card>
       {annotations.map((annotation, index) => (
