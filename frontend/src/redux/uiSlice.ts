@@ -95,7 +95,6 @@ export const uiSlice = createSlice({
   reducers: {
     updateAppointments: (state, action) => {
       const { added, changed, deleted } = action.payload;
-      console.log('added', state.appointments);
       if (added) {
         const startingAddedId =
           state.appointments.length > 0
