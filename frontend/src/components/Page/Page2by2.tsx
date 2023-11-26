@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react';
-import styles from './Page.module.css';
+import styles from './Page2by2.module.css';
 
-export const Page: FC<{
+export const Page2by2: FC<{
   topLeft: ReactElement;
   topRight: ReactElement;
   bottomLeft: ReactElement;

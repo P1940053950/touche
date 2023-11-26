@@ -7,7 +7,8 @@ interface State {
   appointments: SchedulerDataArray;
   selectedUser: User | null;
   users: User[];
-  machines: Resource;
+  machineResources: Resource;
+  machineUtilizations: Array<{ date: string } | Record<string, number>>;
 }
 const initialState: State = {
   appointments: [
@@ -67,7 +68,7 @@ const initialState: State = {
     },
     // Add more users as needed
   ],
-  machines: {
+  machineResources: {
     fieldName: 'machine',
     title: 'Radiation Machines',
     instances: [
@@ -78,6 +79,13 @@ const initialState: State = {
       { id: 'U', text: 'U' },
     ],
   },
+  machineUtilizations: [
+    { date: '2023-11-25', TB1: 16.5, TB2: 32, VB1: 16, VB2: 1.5, U: 46.5 },
+    { date: '2023-11-26', TB1: 2, TB2: 12, VB1: 2, VB2: 2, U: 6 },
+    { date: '2023-11-27', TB1: 38, TB2: 42, VB1: 8, VB2: 3, U: 68 },
+    { date: '2023-11-28', TB1: 100, TB2: 1, VB1: 10, VB2: 40, U: 20 },
+    { date: '2023-11-29', TB1: 45, TB2: 25, VB1: 45, VB2: 25, U: 46 },
+  ],
 };
 
 // Create a slice for the counter
@@ -87,7 +95,6 @@ export const uiSlice = createSlice({
   reducers: {
     updateAppointments: (state, action) => {
       const { added, changed, deleted } = action.payload;
-      console.log('added', state.appointments);
       if (added) {
         const startingAddedId =
           state.appointments.length > 0

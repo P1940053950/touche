@@ -1,35 +1,40 @@
 # RadioCareSync
 
-## Scheduler Requirements
+### Scheduler Requirements
 
 * [Docker](https://www.docker.com/).
 * [Docker Compose](https://docs.docker.com/compose/install/).
 
-## Frontend Requirements
+### Frontend Requirements
 
 * Node.js (with `npm`).
 
-## Backend Requirements
+### Backend Requirements
 * JDK 17+
 * PostgreSQL
+* Maven
 
-### Starting the application
+## Starting the application
 
-## Backend:
+### Backend:
 
 * Use `docker-compose up -d` to start the PostgreSQL server
 * `mvn spring-boot:run`
 
-Database path: http://localhost:5655
+Database path: http://localhost:5655 
+
 Backend application path: http://localhost:8285
 
-## Frontend:
+### Frontend:
 
-!!!
+```bash
+npm start
+npm run build
+```
 
-: http://localhost:
+Frontend application server: http://localhost:5173
 
-## Scheduler:
+### Scheduler:
 
 ```bash
 docker-compose up -d
