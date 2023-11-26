@@ -14,6 +14,7 @@ import { theme } from './theme/theme.ts';
 import { UserSearchBox } from './components/Beds/UserSearch.tsx';
 import { SchedulePage } from './components/Page/SchedulePage.tsx';
 import { UtilizationPage } from './components/Page/UtilizationPage.tsx';
+import "./bg.png"
 
 function App() {
   const dispatch = useAppDispatch();
@@ -71,6 +72,24 @@ function App() {
           <Route path="/beds" element={<Beds annotations={annotations} />} />
         </Routes>
       </BrowserRouter>
+        <div
+            unselectable={true}
+            style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundImage: "url('bg.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                opacity: 0.4,
+                zIndex: 9999,
+                pointerEvents: "none", // Make it not interactable
+            }}
+        ></div>
+
     </ThemeProvider>
   );
 }

@@ -11,5 +11,5 @@
 .bottomLeft,
 .bottomRight {
   flex: 1;
-  border: 1px red dashed;
+  /*border: 1px red dashed;*/
 }

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { Card, CardMedia, Box, Paper, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import styles from './Bed.module.css';
@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import HotelIcon from '@mui/icons-material/Hotel';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { AnnotationData } from './types';
+import {useLocation} from "react-router-dom";
 
 const freeRoomBackground = `repeating-linear-gradient(
   45deg,
@@ -17,8 +18,8 @@ const freeRoomBackground = `repeating-linear-gradient(
 
 const halffullRoomBackground = `repeating-linear-gradient(
   45deg,
-  orange,
-  orange 10px,
+  green,
+  green 10px,
   transparent 10px,
   transparent 20px
 )`;
@@ -32,7 +33,7 @@ const fullRoomBackground = `repeating-linear-gradient(
 )`;
 
 const getColor = (freePlaces: number) => {
-  return freePlaces === 0 ? 'red' : freePlaces < 2 ? 'orange' : 'green';
+  return freePlaces === 0 ? 'red' : freePlaces < 2 ? 'green' : 'green';
 };
 
 const Room: FC<{
@@ -80,7 +81,7 @@ const Room: FC<{
       onMouseEnter={() => setHoveredAnnotation(index)}
       onMouseLeave={() => setHoveredAnnotation(undefined)}
       onClick={() => {
-        setSelectedAnnotation(index);
+          !annotation.freePlaces ? ()=> {} : setSelectedAnnotation(index);
       }}
     >
       <HotelIcon
