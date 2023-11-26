@@ -1,11 +1,14 @@
 // Import createSlice and configureStore from Redux Toolkit
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice, current } from '@reduxjs/toolkit';
 import { SchedulerDataArray, User } from '../components/Beds/types';
 import { Resource } from '@devexpress/dx-react-scheduler';
 import { RootState } from './reducer';
 
 interface State {
   appointments: SchedulerDataArray;
+  userAppointmentDates: {
+    [userName: string]: { startDate: string; endDate: string };
+  };
   selectedUser: User | null;
   users: User[];
   userSearchTerm: string;
@@ -16,6 +19,7 @@ const initialState: State = {
   appointments: [],
   selectedUser: null as User | null,
   users: [],
+  userAppointmentDates: {},
   userSearchTerm: '',
   machineResources: {
     fieldName: 'machine',
@@ -87,20 +91,50 @@ export const uiSlice = createSlice({
       const alreadyScheduled = state.appointments.find(
         (a) => a.machine === machine_name,
       );
+      let userStartDate = '';
+      let userEndDate = '';
       if (alreadyScheduled) {
         const appointment = state.appointments.find(
           (a) => a.machine === machine_name,
         );
         const currentEndDate = new Date(appointment?.endDate || '');
+        userStartDate =
+          currentEndDate.toLocaleDateString('en-GB') +
+          ' ' +
+          currentEndDate.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
         currentEndDate.setMinutes(
           currentEndDate.getMinutes() + action.payload.treatmentTimeMinutes,
         );
         appointment!.endDate = currentEndDate.toISOString();
+        userEndDate =
+          currentEndDate.toLocaleDateString('en-GB') +
+          ' ' +
+          currentEndDate.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
       } else {
         const now = new Date();
         const startDate = now.toISOString();
+        userStartDate =
+          now.toLocaleDateString('en-GB') +
+          ' ' +
+          now.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
         now.setMinutes(now.getMinutes() + action.payload.treatmentTimeMinutes);
         const endDate = now.toISOString();
+        userEndDate =
+          now.toLocaleDateString('en-GB') +
+          ' ' +
+          now.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
         state.appointments = [
           ...state.appointments,
           {
@@ -112,6 +146,10 @@ export const uiSlice = createSlice({
           },
         ];
       }
+      state.userAppointmentDates[action.payload.userName] = {
+        startDate: userStartDate,
+        endDate: userEndDate,
+      };
     },
     selectUser: (state, action) => {
       state.selectedUser = action.payload;
