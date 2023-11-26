@@ -17,20 +17,11 @@ const StyledToolbarContainer = styled('div')(({ theme }) => ({
 export const SchedulePage: FC<PropsWithChildren> = ({ children }) => {
   // const users = useAppSelector((state) => state.ui.users);
   const users = useFetchPatientsQuery(100).data?.items ?? [];
-  const mappedUsers = users.map((user: any) => {
-    return {
-      id: user.name,
-      label: user.name,
-      email: user.cancer.name,
-      phoneNumber: user.fraction_time_days,
-      cancerType: user.cancer.name,
-    };
-  });
 
   return (
     <div className={styles.pageContainer}>
       <StyledToolbarContainer>
-        {mappedUsers.map((user: any) => (
+        {users.map((user: any) => (
           <UserCard key={user.id} user={user} />
         ))}
       </StyledToolbarContainer>

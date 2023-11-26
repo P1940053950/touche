@@ -7,7 +7,19 @@ export const api = createApi({
     fetchPatients: builder.query({
       query: (limit: number) => `patients?limit=${limit}`,
     }),
+    schedulePatient: builder.mutation({
+      query: ({ name, cancerType, fractionTime, isUrgent }) => ({
+        url: '/schedule',
+        method: 'POST',
+        body: {
+          name,
+          cancer_type: cancerType,
+          fraction_time: fractionTime,
+          is_urgent: isUrgent,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useFetchPatientsQuery } = api;
+export const { useFetchPatientsQuery, useSchedulePatientMutation } = api;

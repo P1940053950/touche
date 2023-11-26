@@ -1,10 +1,14 @@
-import { FC } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, useCallback, useEffect } from 'react';
 import { User } from '../Beds/types';
 import { alpha, styled } from '@mui/material/styles';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import Email from '@mui/icons-material/Email';
-import Phone from '@mui/icons-material/Phone';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Vaccines from '@mui/icons-material/Vaccines';
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+import { useSchedulePatientMutation } from '../../redux/apiSlice';
+import { useAppDispatch } from '../../redux/reducer';
+import { addSchedule } from '../../redux/uiSlice';
 
 const StyledCardContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -43,28 +47,53 @@ const iconStyle = {
   width: '18px',
   marginBottom: '-5px',
 };
-const StyledEmailIcon = styled(Email)(({ theme }) => iconStyle);
-const StyledPhoneIcon = styled(Phone)(({ theme }) => iconStyle);
+const StyledHourglassTopIcon = styled(HourglassTopIcon)(
+  ({ theme }) => iconStyle,
+);
+const StyledCalendarMonthIcon = styled(CalendarMonthIcon)(
+  ({ theme }) => iconStyle,
+);
 const StyledVaccinesIcon = styled(Vaccines)(({ theme }) => iconStyle);
 
 export const UserCard: FC<{ user: User }> = ({ user }) => {
+  const dispatch = useAppDispatch();
+  const [schedulePatient, { data }] = useSchedulePatientMutation();
+  const handlePatientSchedule = useCallback(() => {
+    schedulePatient({
+      name: user.name,
+      cancerType: user.cancer.name,
+      fractionTime: user.fraction_time_days,
+      isUrgent: false,
+    });
+  }, [schedulePatient, user]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(
+        addSchedule({
+          data,
+          treatmentTimeMinutes: user.cancer.treatment_time_minutes,
+        }),
+      );
+    }
+  }, [data, dispatch, user.cancer.treatment_time_minutes]);
   return (
-    <StyledCardContainer>
+    <StyledCardContainer onClick={handlePatientSchedule}>
       <StyledPatientTitle>
         <StyledPersonAddIcon />
-        {user.label}
+        {user?.name}
       </StyledPatientTitle>
       <div>
-        <StyledEmailIcon />
-        {user.email}
+        <StyledCalendarMonthIcon />
+        {user?.fraction_time_days} days
       </div>
       <div>
-        <StyledPhoneIcon />
-        {user.phoneNumber}
+        <StyledHourglassTopIcon />
+        {user?.cancer?.treatment_time_minutes} mins
       </div>
       <div>
         <StyledVaccinesIcon />
-        {user.cancerType}
+        {user?.cancer?.name}
       </div>
     </StyledCardContainer>
   );

@@ -10,18 +10,21 @@ export interface AnnotationData {
 }
 
 export interface User {
-  id: string;
-  label: string;
-  value: string;
-  phoneNumber: string;
-  email: string;
-  cancerType: string;
+  name: string;
+  fraction_time_days: number;
+  cancer: {
+    name: string;
+    fraction_times: number[];
+    probability: number;
+    treatment_time_minutes: number;
+  };
+  } 
 }
 
 export interface SchedulerDataPoint {
   id: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   title: string;
   machine: string;
 }
