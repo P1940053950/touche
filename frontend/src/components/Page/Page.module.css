@@ -1,18 +1,10 @@
 .pageContainer {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 12px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-}
-
-.toolbarContainer {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
 }
 
 .contentContainer {

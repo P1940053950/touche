@@ -11,6 +11,8 @@ const StyledCardContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   padding: '12px',
+  width: '80%',
+  boxSizing: 'border-box',
   borderRadius: '4px',
   boxShadow: `0px 0px 10px 0px ${alpha(theme.palette.primary.dark, 1)}`,
   background: alpha(theme.palette.primary.light, 0.8),
