@@ -9,4 +9,5 @@
 
 .contentContainer {
   flex: 3;
+  overflow: auto;
 }

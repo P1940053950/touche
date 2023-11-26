@@ -116,8 +116,6 @@ export const Calendar: FC<{
         {(viewType === 'day' || viewType === 'switcher') && <DayView />}
         {(viewType === 'week' || viewType === 'switcher') && (
           <WeekView
-            startDayHour={9}
-            endDayHour={19}
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
           />

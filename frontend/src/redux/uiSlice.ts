@@ -1,55 +1,22 @@
 // Import createSlice and configureStore from Redux Toolkit
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { SchedulerDataArray, User } from '../components/Beds/types';
 import { Resource } from '@devexpress/dx-react-scheduler';
+import { RootState } from './reducer';
 
 interface State {
   appointments: SchedulerDataArray;
   selectedUser: User | null;
   users: User[];
+  userSearchTerm: string;
   machineResources: Resource;
   machineUtilizations: Array<{ date: string } | Record<string, number>>;
 }
 const initialState: State = {
-  appointments: [
-    {
-      id: 1,
-      startDate: new Date('2023-11-25T09:45').toISOString(),
-      endDate: new Date('2023-11-25T11:00').toISOString(),
-      title: 'Meeting',
-      machine: 'TB1',
-    },
-    {
-      id: 2,
-      startDate: new Date('2023-11-25T12:00').toISOString(),
-      endDate: new Date('2023-11-25T13:30').toISOString(),
-      title: 'Go to a gym',
-      machine: 'TB2',
-    },
-    {
-      id: 3,
-      startDate: new Date('2023-11-25T11:32').toISOString(),
-      endDate: new Date('2023-11-25T12:29').toISOString(),
-      title: 'Drink with friends 🍻',
-      machine: 'U',
-    },
-    {
-      id: 4,
-      startDate: new Date('2023-11-25T11:32').toISOString(),
-      endDate: new Date('2023-11-25T11:31').toISOString(),
-      title: 'Drinks 🍻',
-      machine: 'U',
-    },
-    {
-      id: 5,
-      startDate: new Date('2023-11-25T14:00').toISOString(),
-      endDate: new Date('2023-11-25T13:30').toISOString(),
-      title: 'Running',
-      machine: 'TB2',
-    },
-  ],
+  appointments: [],
   selectedUser: null as User | null,
   users: [],
+  userSearchTerm: '',
   machineResources: {
     fieldName: 'machine',
     title: 'Radiation Machines',
@@ -69,6 +36,21 @@ const initialState: State = {
     { date: '2023-11-29', TB1: 45, TB2: 25, VB1: 45, VB2: 25, U: 46 },
   ],
 };
+
+const selectUserSearchTerm = (state: RootState) => state.ui.userSearchTerm;
+export const selectSearchedUserResults = createSelector(
+  selectUserSearchTerm,
+  (state: RootState, users: User[]) => users,
+  (searchTerm, users) => {
+    return searchTerm !== ''
+      ? users?.filter(
+          (user) =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.cancer.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        ) ?? []
+      : users;
+  },
+);
 
 // Create a slice for the counter
 export const uiSlice = createSlice({
@@ -137,8 +119,16 @@ export const uiSlice = createSlice({
     updateUsers: (state, action) => {
       state.users = action.payload;
     },
+    setUserSearchTerm: (state, action) => {
+      state.userSearchTerm = action.payload;
+    },
   },
 });
 
-export const { updateAppointments, selectUser, updateUsers, addSchedule } =
-  uiSlice.actions;
+export const {
+  updateAppointments,
+  selectUser,
+  updateUsers,
+  addSchedule,
+  setUserSearchTerm,
+} = uiSlice.actions;
