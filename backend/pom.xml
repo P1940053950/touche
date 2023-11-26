@@ -75,8 +75,8 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.14.0</version>
                 <configuration>
-                    <user>eticketuser</user>
-                    <password>eticketpass</password>
+                    <user>touche</user>
+                    <password>touche</password>
                     <schemas>
                         <schema>public</schema>
                     </schemas>
