@@ -18,8 +18,10 @@
 
 ### Backend:
 
-* Use `docker-compose up -d` to start the PostgreSQL server
-* `mvn spring-boot:run`
+```bash
+docker-compose up -d # start the PostgreSQL server
+mvn spring-boot:run
+```
 
 Database path: http://localhost:5655 
 
@@ -37,9 +39,14 @@ Frontend application server: http://localhost:5173
 ### Scheduler:
 
 ```bash
+docker build
 docker-compose up -d
 ```
 
 Scheduler server path: http://localhost:8000
 
+## API documentation links:
+
+* Scheduler: http://localhost:8000/docs
+* Backend: http://localhost:8285/swagger-ui/index.html
 
