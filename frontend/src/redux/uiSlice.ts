@@ -14,60 +14,42 @@ const initialState: State = {
   appointments: [
     {
       id: 1,
-      startDate: new Date('2023-11-25T09:45'),
-      endDate: new Date('2023-11-25T11:00'),
+      startDate: new Date('2023-11-25T09:45').toISOString(),
+      endDate: new Date('2023-11-25T11:00').toISOString(),
       title: 'Meeting',
       machine: 'TB1',
     },
     {
       id: 2,
-      startDate: new Date('2023-11-25T12:00'),
-      endDate: new Date('2023-11-25T13:30'),
+      startDate: new Date('2023-11-25T12:00').toISOString(),
+      endDate: new Date('2023-11-25T13:30').toISOString(),
       title: 'Go to a gym',
       machine: 'TB2',
     },
     {
       id: 3,
-      startDate: new Date('2023-11-25T11:32'),
-      endDate: new Date('2023-11-25T12:29'),
+      startDate: new Date('2023-11-25T11:32').toISOString(),
+      endDate: new Date('2023-11-25T12:29').toISOString(),
       title: 'Drink with friends 🍻',
       machine: 'U',
     },
     {
       id: 4,
-      startDate: new Date('2023-11-25T11:32'),
-      endDate: new Date('2023-11-25T11:31'),
+      startDate: new Date('2023-11-25T11:32').toISOString(),
+      endDate: new Date('2023-11-25T11:31').toISOString(),
       title: 'Drinks 🍻',
       machine: 'U',
     },
     {
       id: 5,
-      startDate: new Date('2023-11-25T14:00'),
-      endDate: new Date('2023-11-25T13:30'),
+      startDate: new Date('2023-11-25T14:00').toISOString(),
+      endDate: new Date('2023-11-25T13:30').toISOString(),
       title: 'Running',
       machine: 'TB2',
     },
   ],
   selectedUser: null as User | null,
-  users: [
-    {
-      id: 'User1',
-      label: 'User 1',
-      value: 'user1',
-      phoneNumber: '123-456-7890',
-      email: 'user1@example.com',
-      cancerType: 'Lung Cancer',
-    },
-    {
-      id: 'User2',
-      label: 'User 2',
-      value: 'user2',
-      phoneNumber: '987-654-3210',
-      email: 'user2@example.com',
-      cancerType: 'Breast Cancer',
-    },
-    // Add more users as needed
-  ],
+  users: [],
   machineResources: {
     fieldName: 'machine',
     title: 'Radiation Machines',
@@ -118,6 +100,37 @@ export const uiSlice = createSlice({
         );
       }
     },
+    addSchedule: (state, action) => {
+      const { machine_name } = action.payload.data;
+      const alreadyScheduled = state.appointments.find(
+        (a) => a.machine === machine_name,
+      );
+      if (alreadyScheduled) {
+        const appointment = state.appointments.find(
+          (a) => a.machine === machine_name,
+        );
+        const currentEndDate = new Date(appointment?.endDate || '');
+        currentEndDate.setMinutes(
+          currentEndDate.getMinutes() + action.payload.treatmentTimeMinutes,
+        );
+        appointment!.endDate = currentEndDate.toISOString();
+      } else {
+        const now = new Date();
+        const startDate = now.toISOString();
+        now.setMinutes(now.getMinutes() + action.payload.treatmentTimeMinutes);
+        const endDate = now.toISOString();
+        state.appointments = [
+          ...state.appointments,
+          {
+            id: state.appointments.length,
+            startDate: startDate,
+            endDate: endDate,
+            title: machine_name,
+            machine: machine_name,
+          },
+        ];
+      }
+    },
     selectUser: (state, action) => {
       state.selectedUser = action.payload;
     },
@@ -127,4 +140,5 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { updateAppointments, selectUser, updateUsers } = uiSlice.actions;
+export const { updateAppointments, selectUser, updateUsers, addSchedule } =
+  uiSlice.actions;

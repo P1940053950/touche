@@ -113,9 +113,7 @@ export const Calendar: FC<{
         <ViewState defaultCurrentDate={currentDate} />
         <EditingState onCommitChanges={onCommitChanges} />
         <IntegratedEditing />
-        {(viewType === 'day' || viewType === 'switcher') && (
-          <DayView startDayHour={9} endDayHour={19} />
-        )}
+        {(viewType === 'day' || viewType === 'switcher') && <DayView />}
         {(viewType === 'week' || viewType === 'switcher') && (
           <WeekView
             startDayHour={9}
