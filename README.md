@@ -1,5 +1,7 @@
 # RadioCareSync
 
+**Google Drive link with demo videos**: https://drive.google.com/drive/folders/1kOpGgwpA-GD1RYg0UoFPSE5Beh15bin1?usp=sharing
+
 ### Scheduler Requirements
 
 * [Docker](https://www.docker.com/).
@@ -45,7 +47,7 @@ docker-compose up -d
 
 Scheduler server path: http://localhost:8000
 
-## API documentation links:
+## API documentation links
 
 * Scheduler: http://localhost:8000/docs
 * Backend: http://localhost:8285/swagger-ui/index.html
