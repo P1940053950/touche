@@ -1,10 +1,12 @@
 from typing import List
 
 from fastapi import Depends, HTTPException
+from starlette.middleware.cors import CORSMiddleware
 
 from scheduling.calendar import NotEnoughDaysError
 from scheduling.constants import TWO_YEAR_LEN_DAYS
 from scheduling.diseases import CANCER_MAP
+from scheduling.machine_pool import MachinePool
 from scheduling.patients import Patient, InvalidFractionTime, PatientGen
 from scheduling.scheduler import Scheduler, ExtendScheduleError
 from scheduling.utils import (
@@ -24,6 +26,13 @@ from server.models import (
 from fastapi import FastAPI
 
 app = FastAPI()
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost", "localhost", "http://127.0.0.1", "http://0.0.0.0"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 
 @app.post("/schedule", response_model=MakeAppointmentResponse)
@@ -85,6 +94,22 @@ def get_cancers(offset: int = 0, limit: int = 100):
         [cancer.to_dict() for cancer in CANCER_MAP.values()], key=lambda c: c["name"]
     )
 
+    return {
+        "items": data[offset : offset + limit],
+        "total": len(data),
+    }
+
+
+@app.get("/machines", response_model=PagedResponse)
+def get_machines(
+    offset: int = 0,
+    limit: int = 100,
+    machine_pool: MachinePool = Depends(get_machine_pool),
+):
+    data = sorted(
+        [machine.to_dict() for machine in machine_pool.get_all_machines()],
+        key=lambda c: c["name"],
+    )
     return {
         "items": data[offset : offset + limit],
         "total": len(data),
