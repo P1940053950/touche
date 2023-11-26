@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Page } from './Page';
+import { SchedulePage } from './SchedulePage';
 
 const meta = {
   title: 'Hospital/Page',
-  component: Page,
+  component: SchedulePage,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Page>;
+} satisfies Meta<typeof SchedulePage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

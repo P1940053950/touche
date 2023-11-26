@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { uiSlice } from './uiSlice';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { catApi } from './catApiSlice';
+import { api } from './apiSlice';
 // ...
 const store = configureStore({
   reducer: {
     ui: uiSlice.reducer,
-    [catApi.reducerPath]: catApi.reducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(catApi.middleware),
+    getDefaultMiddleware().concat(api.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
