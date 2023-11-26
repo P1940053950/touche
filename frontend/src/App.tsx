@@ -8,10 +8,12 @@ import { updateAppointments } from './redux/uiSlice';
 import Beds from './components/Beds/Bed';
 import MenuAppBar from './components/menu/MenuAppbar.tsx';
 import annotations from './components/Beds/Annotation';
-import { Page } from './components/Page/Page.tsx';
+import { Page2by2 } from './components/Page/Page2by2.tsx';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './theme/theme.ts';
 import { UserSearchBox } from './components/Beds/UserSearch.tsx';
+import { Page } from './components/Page/Page.tsx';
+import { UtilizationPage } from './components/Page/UtilizationPage.tsx';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,7 +35,7 @@ function App() {
           <Route
             path="/"
             element={
-              <Page
+              <Page2by2
                 topLeft={
                   <div>
                     <UserSearchBox />
@@ -55,14 +57,17 @@ function App() {
           <Route
             path="/calendar"
             element={
-              <Calendar
-                currentDate={today}
-                viewType="switcher"
-                schedulerData={appointments}
-                onCommitChanges={handleAppointmentsEdit}
-              />
+              <Page>
+                <Calendar
+                  currentDate={today}
+                  viewType="switcher"
+                  schedulerData={appointments}
+                  onCommitChanges={handleAppointmentsEdit}
+                />
+              </Page>
             }
           />
+          <Route path="/utilization" element={<UtilizationPage />} />
           <Route path="/beds" element={<Beds annotations={annotations} />} />
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,15 @@
+.pageContainer {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
+}
+
+.topLeft,
+.topRight,
+.bottomLeft,
+.bottomRight {
+  flex: 1;
+  border: 1px red dashed;
+}

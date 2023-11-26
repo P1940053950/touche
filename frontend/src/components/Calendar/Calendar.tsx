@@ -106,7 +106,7 @@ export const Calendar: FC<{
   viewType: 'day' | 'week' | 'month' | 'switcher';
   onCommitChanges: (...args: any[]) => void;
 }> = ({ schedulerData, currentDate, viewType, onCommitChanges }) => {
-  const machines = useAppSelector((state) => state.ui.machines);
+  const machineResources = useAppSelector((state) => state.ui.machineResources);
   return (
     <Paper>
       <Scheduler data={schedulerData} firstDayOfWeek={1}>
@@ -133,7 +133,7 @@ export const Calendar: FC<{
         <Appointments />
         <AppointmentTooltip showOpenButton showDeleteButton />
         <AppointmentForm />
-        <Resources data={[machines]} mainResourceName={'machine'} />
+        <Resources data={[machineResources]} mainResourceName={'machine'} />
       </Scheduler>
     </Paper>
   );

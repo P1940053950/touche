@@ -72,6 +72,14 @@ export default function MenuAppBar() {
             <InfoIcon sx={{ marginRight: 1 }} />
             Beds
           </MenuItem>
+          <MenuItem
+            onClick={handleDrawerClose}
+            component={Link}
+            to="/utilization"
+          >
+            <InfoIcon sx={{ marginRight: 1 }} />
+            Utilization
+          </MenuItem>
         </MenuList>
       </Drawer>
     </React.Fragment>

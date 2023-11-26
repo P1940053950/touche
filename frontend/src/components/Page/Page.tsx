@@ -1,18 +1,18 @@
-import { FC, ReactElement } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import styles from './Page.module.css';
+import { useAppSelector } from '../../redux/reducer';
+import { UserCard } from '../UserCard/UserCard';
 
-export const Page: FC<{
-  topLeft: ReactElement;
-  topRight: ReactElement;
-  bottomLeft: ReactElement;
-  bottomRight: ReactElement;
-}> = ({ bottomLeft, bottomRight, topLeft, topRight }) => {
+export const Page: FC<PropsWithChildren> = ({ children }) => {
+  const users = useAppSelector((state) => state.ui.users);
   return (
     <div className={styles.pageContainer}>
-      <div className={styles.topLeft}>{topLeft}</div>
-      <div className={styles.topRight}>{topRight}</div>
-      <div className={styles.bottomLeft}>{bottomLeft}</div>
-      <div className={styles.bottomRight}>{bottomRight}</div>
+      <div className={styles.toolbarContainer}>
+        {users.map((user) => (
+          <UserCard key={user.id} user={user} />
+        ))}
+      </div>
+      <div className={styles.contentContainer}>{children}</div>
     </div>
   );
 };
